@@ -1,6 +1,6 @@
 import sys,tempfile,wave,time
 from pathlib import Path
-sys.path.insert(0,str(Path('outputs/Созвоны/source').resolve()))
+sys.path.insert(0,str(Path('outputs/Rehear/source').resolve()))
 from transcription_guard import suspicious,recover,check,srt_text
 from transcript import parse_srt
 

@@ -37,7 +37,6 @@ This is a beta. Speech recognition can be inaccurate, especially music and vocal
 
 ## Update
 
-Previously named «Созвоны». Quit the old app and install Rehear.app in Applications. After checking Rehear, move only the old Созвоны.app to Trash. Existing settings, models and recordings are preserved.
 
 
 Wait for processing to finish, quit with ⌘Q and replace the app in Applications. Models and settings live separately in `~/Library/Application Support/ru.personal.calls`; recordings and results are in your chosen folder. Keep those folders when updating.

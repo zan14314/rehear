@@ -8,4 +8,4 @@ The release includes licenses in `Rehear.app/Contents/Resources/ThirdParty` and 
 - Python 3.12 (PSF) and OpenSSL: licenses included in the runtime.
 - Model weights are not included; origins, revisions and checksums are pinned in `model_downloads.json`. Model licenses are linked in the download UI.
 
-Copied license notices are in `outputs/Созвоны/source/third-party-licenses/`. The app's original code does not yet have a selected public license; third-party licenses remain unchanged.
+Copied license notices are in `outputs/Rehear/source/third-party-licenses/`. The app's original code does not yet have a selected public license; third-party licenses remain unchanged.

@@ -2,7 +2,7 @@
 
 ## 0.5.4 — 2026-10-26
 
-- Renamed the application, exports, setup and download package to Rehear.
+- Updated Rehear branding across the application, exports, setup and download package.
 - Preserved the application identifier and local storage for existing users.
 
 

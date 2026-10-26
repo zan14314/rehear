@@ -1,6 +1,6 @@
 import sys,tempfile,json
 from pathlib import Path
-sys.path.insert(0,str(Path('outputs/Созвоны/source').resolve()))
+sys.path.insert(0,str(Path('outputs/Rehear/source').resolve()))
 from transcript import write_result
 from transcript_versions import promote,migrate
 with tempfile.TemporaryDirectory() as td:

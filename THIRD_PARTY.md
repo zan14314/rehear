@@ -1,6 +1,6 @@
 # Third-party components
 
-The release includes licenses in `Созвоны.app/Contents/Resources/ThirdParty` and exact third-party source archives in its accompanying ZIP. Keep those files together when redistributing a release.
+The release includes licenses in `Rehear.app/Contents/Resources/ThirdParty` and exact third-party source archives in its accompanying ZIP. Keep those files together when redistributing a release.
 
 - whisper.cpp (MIT), pinned source 0c7be696371069e0baa2515ed7aa08d5a5473aa6: https://github.com/ggml-org/whisper.cpp
 - llama-helper from Meetily (MIT), with pinned Cargo dependencies in the supplied source archive: https://github.com/meetily/meetily

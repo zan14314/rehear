@@ -54,10 +54,10 @@ enum SystemAudioDiscovery{
     }
     static func matches(_ candidate:String,_ selected:String)->Bool{candidate==selected || candidate.hasPrefix(selected+".")}
     static func filter(_ content:SCShareableContent,bundleID:String)throws->SCContentFilter{
-        guard let display=content.displays.first else{throw NSError(domain:"Созвоны",code:1,userInfo:[NSLocalizedDescriptionKey:"Экран не найден"])}
+        guard let display=content.displays.first else{throw NSError(domain:"Rehear",code:1,userInfo:[NSLocalizedDescriptionKey:"Экран не найден"])}
         if bundleID.isEmpty{return SCContentFilter(display:display,excludingApplications:[],exceptingWindows:[])}
         let apps=content.applications.filter{matches($0.bundleIdentifier,bundleID)}
-        guard !apps.isEmpty else{throw NSError(domain:"Созвоны",code:1,userInfo:[NSLocalizedDescriptionKey:"Выбранное приложение недоступно для записи. Открой его и повтори. Другие приложения не записываются."])}
+        guard !apps.isEmpty else{throw NSError(domain:"Rehear",code:1,userInfo:[NSLocalizedDescriptionKey:"Выбранное приложение недоступно для записи. Открой его и повтори. Другие приложения не записываются."])}
         return SCContentFilter(display:display,including:apps,exceptingWindows:[])
     }
 }

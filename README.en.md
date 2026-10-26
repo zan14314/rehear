@@ -1,12 +1,12 @@
-# Sozvony — local meeting recorder and transcription for Mac
+# Rehear — local meeting recorder and transcription for Mac
 
 [Русский](README.md) · **English**
 
 Record microphone and system audio, transcribe speech with Whisper, generate meeting summaries and ask questions about a conversation — locally on your Mac.
 
-**Beta 0.5.3 · Apple Silicon M1 or newer · macOS 15+.** Intel Macs and Windows are not supported. The application interface is currently in Russian; this page is an English guide, not a claim of an English UI.
+**Beta 0.5.4 · Apple Silicon M1 or newer · macOS 15+.** Intel Macs and Windows are not supported. The application interface is currently in Russian; this page is an English guide, not a claim of an English UI.
 
-[**Download the Mac app →**](https://github.com/zan14314/sozvony/releases/tag/v0.5.3) · [Report an issue](https://github.com/zan14314/sozvony/issues)
+[**Download the Mac app →**](https://github.com/zan14314/rehear/releases/tag/v0.5.4) · [Report an issue](https://github.com/zan14314/rehear/issues)
 
 ## What you can do
 
@@ -21,8 +21,8 @@ Useful for meeting notes, lecture transcription, interviews and finding what was
 
 ## Install
 
-1. Download **Sozvony-0.5.3-macOS-Apple-Silicon.zip** from the release Assets. GitHub's “Source code” ZIP is not the app.
-2. Extract it and move **Созвоны.app** to Applications.
+1. Download **Rehear-0.5.4-macOS-Apple-Silicon.zip** from the release Assets. GitHub's “Source code” ZIP is not the app.
+2. Extract it and move **Rehear.app** to Applications.
 3. This beta is not Apple-notarized or Developer ID signed. If macOS blocks it and you trust this build, after attempting to launch use **System Settings → Privacy & Security → Open Anyway** for this specific application. Do not globally disable Gatekeeper.
 4. Open the setup screen, choose a recordings folder and download a recommended model. Allow microphone and system audio capture if you need recording; importing existing files does not require capture permissions.
 5. Make a short test recording and check its audio and transcript.
@@ -36,6 +36,9 @@ Audio and transcripts are processed locally. Model downloads connect to Hugging 
 This is a beta. Speech recognition can be inaccurate, especially music and vocals. Loop and sparse-output checks address some failures but cannot guarantee accuracy. Chat retrieves relevant fragments and may miss information elsewhere in a long recording. An independent physical M1/macOS 15 test is still needed.
 
 ## Update
+
+Previously named «Созвоны». Quit the old app and install Rehear.app in Applications. After checking Rehear, move only the old Созвоны.app to Trash. Existing settings, models and recordings are preserved.
+
 
 Wait for processing to finish, quit with ⌘Q and replace the app in Applications. Models and settings live separately in `~/Library/Application Support/ru.personal.calls`; recordings and results are in your chosen folder. Keep those folders when updating.
 

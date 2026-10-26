@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.4 — 2026-10-26
+
+- Renamed the application, exports, setup and download package to Rehear.
+- Preserved the application identifier and local storage for existing users.
+
+
 ## 0.5.3 — 2026-10-26
 
 - Detect unusually short transcripts over sustained audio and retry only the affected window without VAD or glossary prompting.

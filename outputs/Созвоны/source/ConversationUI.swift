@@ -52,7 +52,7 @@ enum ConversationPDF{
         }
         let setter=CTFramesetterCreateWithAttributedString(document);var page=CGRect(x:0,y:0,width:595.28,height:841.89)
         let temporary=URL(fileURLWithPath:NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString+".pdf");defer{try? FileManager.default.removeItem(at:temporary)}
-        guard let consumer=CGDataConsumer(url:temporary as CFURL),let context=CGContext(consumer:consumer,mediaBox:&page,[kCGPDFContextTitle:title] as CFDictionary) else{throw NSError(domain:"Созвоны",code:1,userInfo:[NSLocalizedDescriptionKey:"Не удалось создать PDF"])}
+        guard let consumer=CGDataConsumer(url:temporary as CFURL),let context=CGContext(consumer:consumer,mediaBox:&page,[kCGPDFContextTitle:title] as CFDictionary) else{throw NSError(domain:"Rehear",code:1,userInfo:[NSLocalizedDescriptionKey:"Не удалось создать PDF"])}
         var location=0;var number=0
         repeat{
             context.beginPDFPage(nil);number += 1;context.setFillColor(CGColor(gray:1,alpha:1));context.fill(page)
@@ -60,9 +60,9 @@ enum ConversationPDF{
             let pageText=(document.string as NSString).substring(with:NSRange(location:location,length:visible.length)) as NSString
             let orphan=pageText.range(of:"\\[\\d{2}:\\d{2}:\\d{2}\\]\\s*$",options:.regularExpression)
             if orphan.location != NSNotFound && orphan.location>0 && location+visible.length<document.length{visible.length=orphan.location;frame=CTFramesetterCreateFrame(setter,CFRange(location:location,length:visible.length),path,nil)}
-            guard visible.length>0 else{context.endPDFPage();context.closePDF();throw NSError(domain:"Созвоны",code:2,userInfo:[NSLocalizedDescriptionKey:"Текст не помещается на странице"])}
+            guard visible.length>0 else{context.endPDFPage();context.closePDF();throw NSError(domain:"Rehear",code:2,userInfo:[NSLocalizedDescriptionKey:"Текст не помещается на странице"])}
             context.textMatrix = .identity;CTFrameDraw(frame,context)
-            let footer=NSAttributedString(string:"Созвоны  ·  \(number)",attributes:[.font:NSFont.systemFont(ofSize:9),.foregroundColor:NSColor.gray]);context.textPosition=CGPoint(x:48,y:30);CTLineDraw(CTLineCreateWithAttributedString(footer),context)
+            let footer=NSAttributedString(string:"Rehear  ·  \(number)",attributes:[.font:NSFont.systemFont(ofSize:9),.foregroundColor:NSColor.gray]);context.textPosition=CGPoint(x:48,y:30);CTLineDraw(CTLineCreateWithAttributedString(footer),context)
             context.endPDFPage();location += visible.length
         }while location<document.length
         context.closePDF();try Data(contentsOf:temporary).write(to:target,options:.atomic)
@@ -113,7 +113,7 @@ struct ConversationChatView:View{
                 .onAppear{if !model.chatMessages.isEmpty{proxy.scrollTo("chat-bottom",anchor:.bottom)}}
             }
             VStack(spacing:8){
-                if busy{HStack{ProgressView().controlSize(.small);Text(job?.status=="queued" ? "В очереди":"Созвоны отвечают…").font(.caption).foregroundStyle(.secondary);Spacer();Button("Остановить"){if let job{store.send(["action":"cancel","ids":[job.id]])}}.buttonStyle(.plain).font(.caption)}}
+                if busy{HStack{ProgressView().controlSize(.small);Text(job?.status=="queued" ? "В очереди":"Rehear отвечает…").font(.caption).foregroundStyle(.secondary);Spacer();Button("Остановить"){if let job{store.send(["action":"cancel","ids":[job.id]])}}.buttonStyle(.plain).font(.caption)}}
                 if !store.error.isEmpty{Text(store.error).font(.caption).foregroundStyle(.orange).frame(maxWidth:.infinity,alignment:.leading)}
                 HStack(spacing:12){TextField("Сообщение…",text:$question).textFieldStyle(.plain).onSubmit{ask()};Button{ask()}label:{Image(systemName:"arrow.up.circle.fill").font(.system(size:25)).foregroundStyle(accent)}.buttonStyle(.plain).accessibilityLabel("Отправить сообщение").help("Отправить сообщение").disabled(busy || sending || question.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty)}
                     .padding(14).background(Color.white.opacity(0.06),in:RoundedRectangle(cornerRadius:13))
@@ -129,7 +129,7 @@ struct ConversationChatView:View{
         let state=generation?.status ?? message.status ?? "done"
         HStack{if own{Spacer(minLength:70)}
             VStack(alignment:.leading,spacing:10){
-                Text(own ? "Ты":"Созвоны").font(.caption.weight(.medium)).foregroundStyle(.secondary)
+                Text(own ? "Ты":"Rehear").font(.caption.weight(.medium)).foregroundStyle(.secondary)
                 if !message.text.isEmpty{Text((try? AttributedString(markdown:message.text,options:.init(interpretedSyntax:.inlineOnlyPreservingWhitespace))) ?? AttributedString(message.text)).font(.system(size:16)).lineSpacing(5)}
                 if !own && message.text.isEmpty{Text(working ? "…":state=="cancelled" ? "Ответ остановлен":state=="error" ? (generation?.message ?? "Не удалось получить ответ"):"Ответ ожидается").foregroundStyle(.secondary)}
                 if !own && working && !message.text.isEmpty{Text("Готовим новый ответ…").font(.caption).foregroundStyle(.secondary)}
@@ -139,7 +139,7 @@ struct ConversationChatView:View{
                 .background(own ? accent.opacity(0.16):Color.white.opacity(0.04),in:RoundedRectangle(cornerRadius:14))
                 .contentShape(RoundedRectangle(cornerRadius:14))
                 .contextMenu{ForEach(Array(actions(message).enumerated()),id:\.offset){_,action in Button(action.title,action:action.action).disabled(!action.enabled)}}
-                .accessibilityElement(children:.contain).accessibilityLabel(own ? "Твоё сообщение":"Ответ Созвонов")
+                .accessibilityElement(children:.contain).accessibilityLabel(own ? "Твоё сообщение":"Ответ Rehear")
             if !own{Spacer(minLength:40)}
         }.id(message.id)
     }

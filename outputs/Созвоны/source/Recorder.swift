@@ -29,7 +29,7 @@ final class Recorder:NSObject,@unchecked Sendable,SCStreamOutput,SCStreamDelegat
     var listener:AudioObjectPropertyListenerBlock?;var watchdog:DispatchSourceTimer?;var lastMic=Date();var lastSystem=Date();var micEnd=0.0;var systemEnd=0.0
     var devicesAddress=AudioObjectPropertyAddress(mSelector:kAudioHardwarePropertyDevices,mScope:kAudioObjectPropertyScopeGlobal,mElement:kAudioObjectPropertyElementMain)
     var address=AudioObjectPropertyAddress(mSelector:kAudioHardwarePropertyDefaultInputDevice,mScope:kAudioObjectPropertyScopeGlobal,mElement:kAudioObjectPropertyElementMain)
-    func fail(_ text:String)->NSError{NSError(domain:"Созвоны",code:1,userInfo:[NSLocalizedDescriptionKey:text])}
+    func fail(_ text:String)->NSError{NSError(domain:"Rehear",code:1,userInfo:[NSLocalizedDescriptionKey:text])}
     func report(_ message:String){queue.async{if !self.stopping && self.failure==nil{self.failure=message;self.onError?(message)}}}
     func journal(resolved:Bool=false){
         guard let url else{return}

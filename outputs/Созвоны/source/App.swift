@@ -39,7 +39,7 @@ struct SearchHit:Decodable,Identifiable{var jobId:String;var title:String;var st
     }
     func copyDiagnostics(){
         let version=Bundle.main.object(forInfoDictionaryKey:"CFBundleShortVersionString") as? String ?? "?"
-        var text="Созвоны \(version) · macOS \(ProcessInfo.processInfo.operatingSystemVersionString) · RAM \(ProcessInfo.processInfo.physicalMemory/1024/1024/1024) ГБ · ARM64\nТранскрибация: \(URL(fileURLWithPath:speechModel).lastPathComponent)\nLLM: \(URL(fileURLWithPath:titleModel).lastPathComponent)\nМикрофон: \(AVCaptureDevice.authorizationStatus(for:.audio).rawValue) · Системный звук: \(CGPreflightScreenCaptureAccess())\nСервис: \(serviceHealthy ? "доступен":"недоступен") · В очереди: \(jobs.filter{["queued","working","waitingModel"].contains($0.status)}.count)"
+        var text="Rehear \(version) · macOS \(ProcessInfo.processInfo.operatingSystemVersionString) · RAM \(ProcessInfo.processInfo.physicalMemory/1024/1024/1024) ГБ · ARM64\nТранскрибация: \(URL(fileURLWithPath:speechModel).lastPathComponent)\nLLM: \(URL(fileURLWithPath:titleModel).lastPathComponent)\nМикрофон: \(AVCaptureDevice.authorizationStatus(for:.audio).rawValue) · Системный звук: \(CGPreflightScreenCaptureAccess())\nСервис: \(serviceHealthy ? "доступен":"недоступен") · В очереди: \(jobs.filter{["queued","working","waitingModel"].contains($0.status)}.count)"
         if let issue=lastFailure{text += "\nПоследний сбой: \(issue.time) · этап \(issue.stage) · код \(issue.code) · тип \(issue.kind)"}
         NSPasteboard.general.clearContents();NSPasteboard.general.setString(text,forType:.string)
     }
@@ -194,11 +194,11 @@ struct SearchHit:Decodable,Identifiable{var jobId:String;var title:String;var st
         alert.addButton(withTitle:"Отмена");alert.addButton(withTitle:"Переместить в Корзину")
         guard alert.runModal() == .alertSecondButtonReturn else{return}
         do{
-            guard FileManager.default.fileExists(atPath:target.path) else{throw NSError(domain:"Созвоны",code:1,userInfo:[NSLocalizedDescriptionKey:"Файл или папка уже перемещены. Обнови список."])}
+            guard FileManager.default.fileExists(atPath:target.path) else{throw NSError(domain:"Rehear",code:1,userInfo:[NSLocalizedDescriptionKey:"Файл или папка уже перемещены. Обнови список."])}
             if completed{
                 let marker=target.appendingPathComponent(".calls-result.json")
                 let data=try Data(contentsOf:marker)
-                guard let meta=try JSONSerialization.jsonObject(with:data) as? [String:Any],meta["id"] as? String == row.id else{throw NSError(domain:"Созвоны",code:1,userInfo:[NSLocalizedDescriptionKey:"Не удалось подтвердить папку результата. Удаление отменено."])}
+                guard let meta=try JSONSerialization.jsonObject(with:data) as? [String:Any],meta["id"] as? String == row.id else{throw NSError(domain:"Rehear",code:1,userInfo:[NSLocalizedDescriptionKey:"Не удалось подтвердить папку результата. Удаление отменено."])}
                 for controller in Array(transcriptWindows.values){if controller.resultFolder==target.path{controller.window?.close()}}
             }
             try FileManager.default.trashItem(at:target,resultingItemURL:nil)
@@ -271,7 +271,7 @@ struct ContentView:View{
     var body:some View{
         HStack(spacing:0){
             VStack(alignment:.leading,spacing:6){
-                HStack(spacing:10){Image(systemName:"waveform").font(.title2).foregroundStyle(accent);Text("Созвоны").font(.title3.weight(.semibold))}.padding(.bottom,32).padding(.leading,12)
+                HStack(spacing:10){Image(systemName:"waveform").font(.title2).foregroundStyle(accent);Text("Rehear").font(.title3.weight(.semibold))}.padding(.bottom,32).padding(.leading,12)
                 nav("Главная","square.grid.2x2",0)
                 nav("Очередь","list.bullet.rectangle",2,active.count+newFiles.count)
                 nav("Транскрипты","doc.text",3)
@@ -507,7 +507,7 @@ struct MenuBarControls:View{
     @State var loginEnabled=SMAppService.mainApp.status == .enabled
     var active:Int{store.jobs.filter{["queued","working","converting","naming"].contains($0.status)}.count}
     var body:some View{
-        Button("Открыть Созвоны"){showApp()}.keyboardShortcut("o")
+        Button("Открыть Rehear"){showApp()}.keyboardShortcut("o")
         if store.recording{Text("● Идёт запись")}
         if active>0{Text("В обработке и очереди: \(active)")}
         Divider()
@@ -525,11 +525,11 @@ struct MenuBarControls:View{
         Divider()
         Toggle("Запускать при входе в macOS",isOn:Binding(get:{loginEnabled},set:{enabled in
             do{if enabled{try SMAppService.mainApp.register()}else{try SMAppService.mainApp.unregister()};loginEnabled=SMAppService.mainApp.status == .enabled
-                if enabled && !loginEnabled{store.error="Подтверди запуск Созвонов в настройках macOS → Основные → Объекты входа.";showApp()}
+                if enabled && !loginEnabled{store.error="Подтверди запуск Rehear в настройках macOS → Основные → Объекты входа.";showApp()}
             }catch{store.error=error.localizedDescription;showApp()}
         }))
         Divider()
-        Button("Завершить Созвоны"){NSApp.terminate(nil)}.keyboardShortcut("q")
+        Button("Завершить Rehear"){NSApp.terminate(nil)}.keyboardShortcut("q")
     }
     func showApp(){openWindow(id:"main");NSApp.activate(ignoringOtherApps:true)}
     func startRecord(_ mode:String){store.mode=mode;store.record()}
@@ -538,7 +538,7 @@ struct MenuBarControls:View{
     @NSApplicationDelegateAdaptor(Delegate.self)var delegate
     @StateObject var store=Store()
     var body:some Scene{
-        Window("Созвоны",id:"main"){
+        Window("Rehear",id:"main"){
             ContentView().environmentObject(store).onAppear{delegate.attachStore(store);NSApp.setActivationPolicy(.regular);NSApp.activate(ignoringOtherApps:true)}
         }.defaultSize(width:1160,height:790).commands{
             CommandGroup(replacing:.newItem){Button("Обработать новые"){store.send(["action":"enqueue","allNew":true])}.keyboardShortcut("n",modifiers:[.command,.shift])}

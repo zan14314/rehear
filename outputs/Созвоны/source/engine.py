@@ -18,7 +18,7 @@ from conversation_features import parse_link,retrieve,join_recordings
 from library_tools import search as search_transcripts, edit as edit_transcript
 
 ROOT=Path(__file__).resolve().parent
-RES=ROOT if (ROOT/'whisper-cli').exists() else ROOT.parent/'Созвоны.app'/'Contents'/'Resources'
+RES=ROOT if (ROOT/'whisper-cli').exists() else ROOT.parent/'Rehear.app'/'Contents'/'Resources'
 DATA=Path.home()/'Library'/'Application Support'/'ru.personal.calls'
 DATA.mkdir(parents=True,exist_ok=True)
 STATE=DATA/'state.json'

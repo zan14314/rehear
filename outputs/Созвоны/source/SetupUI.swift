@@ -43,7 +43,7 @@ struct SetupSheet:View{
     @State var microphone=false;@State var screen=false
     var body:some View{
         VStack(alignment:.leading,spacing:18){
-            Text("Настроим Созвоны").font(.title2.bold())
+            Text("Настроим Rehear").font(.title2.bold())
             ScrollView{
                 VStack(alignment:.leading,spacing:22){
                     VStack(alignment:.leading,spacing:8){Text("1. Папка разговоров").font(.headline);Text(store.folder).font(.caption).textSelection(.enabled);Button("Выбрать папку…"){let panel=NSOpenPanel();panel.canChooseDirectories=true;panel.canChooseFiles=false;panel.canCreateDirectories=true;if panel.runModal() == .OK,let url=panel.url{store.send(["action":"folder","path":url.path])}}}

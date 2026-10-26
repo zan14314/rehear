@@ -5,7 +5,7 @@ from sign import sign
 from bundle_runtime import bundle_runtime
 from compatibility import check,MINIMUM
 source=pathlib.Path(__file__).resolve().parent
-app=source.parent/'Созвоны.app'
+app=source.parent/'Rehear.app'
 with tempfile.TemporaryDirectory(prefix='calls-build-') as scratch:
     staged=pathlib.Path(scratch)/app.name
     shutil.copytree(app,staged)
@@ -29,7 +29,7 @@ with tempfile.TemporaryDirectory(prefix='calls-build-') as scratch:
     shutil.rmtree(app)
     shutil.copytree(staged,app)
     shutil.copy2(staged/'Contents/MacOS/Calls',source.parents[2]/'work/Calls-ux')
-    package=source.parent/'Созвоны.zip'
+    package=source.parent/'Rehear.zip'
     if package.exists():package.unlink()
     subprocess.run(['ditto','-c','-k','--keepParent','--norsrc',str(staged),str(package)],check=True)
 print('Пересобрано:',app)

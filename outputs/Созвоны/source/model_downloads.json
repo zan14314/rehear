@@ -1,0 +1,54 @@
+[
+  {
+    "repo": "ggerganov/whisper.cpp",
+    "revision": "5359861c739e955e79d9a303bcbc70fb988958b1",
+    "file": "ggml-small.bin",
+    "size": 487601967,
+    "sha256": "1be3a9b2063867b937e64e2ec7483364a79917e157fa98c5d94b5c1fffea987b",
+    "id": "whisper-small",
+    "name": "Whisper Small",
+    "kind": "speech",
+    "memoryGB": 8,
+    "detail": "Лёгкий вариант; меньше памяти, ниже точность.",
+    "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-small.bin"
+  },
+  {
+    "repo": "ggerganov/whisper.cpp",
+    "revision": "5359861c739e955e79d9a303bcbc70fb988958b1",
+    "file": "ggml-large-v3-turbo.bin",
+    "size": 1624555275,
+    "sha256": "1fc70f774d38eb169993ac391eea357ef47c88757ef72ee5943879b7e8e2bc69",
+    "id": "whisper-turbo",
+    "name": "Whisper Large v3 Turbo",
+    "kind": "speech",
+    "memoryGB": 16,
+    "detail": "Основной вариант для точной транскрибации.",
+    "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-large-v3-turbo.bin"
+  },
+  {
+    "repo": "unsloth/Qwen3.5-4B-GGUF",
+    "revision": "e87f176479d0855a907a41277aca2f8ee7a09523",
+    "file": "Qwen3.5-4B-Q4_K_M.gguf",
+    "size": 2740937888,
+    "sha256": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4",
+    "id": "qwen4",
+    "name": "Qwen 3.5 · 4B",
+    "kind": "llm",
+    "memoryGB": 16,
+    "detail": "Названия, саммари и ответы по разговору.",
+    "url": "https://huggingface.co/unsloth/Qwen3.5-4B-GGUF/resolve/e87f176479d0855a907a41277aca2f8ee7a09523/Qwen3.5-4B-Q4_K_M.gguf"
+  },
+  {
+    "repo": "ggerganov/whisper.cpp",
+    "revision": "5359861c739e955e79d9a303bcbc70fb988958b1",
+    "file": "ggml-large-v3.bin",
+    "size": 3095033483,
+    "sha256": "64d182b440b98d5203c4f9bd541544d84c605196c4f7b845dfa11fb23594d1e2",
+    "id": "whisper-large",
+    "name": "Whisper Large v3",
+    "kind": "improve",
+    "memoryGB": 24,
+    "detail": "Дополнительная модель для повторного распознавания.",
+    "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-large-v3.bin"
+  }
+]
